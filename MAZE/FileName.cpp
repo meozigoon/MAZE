@@ -19,8 +19,8 @@ vector<vector<int>> v;
 void CursorView(BOOL b)
 {
 	CONSOLE_CURSOR_INFO cursorInfo = { 0, };
-	cursorInfo.dwSize = 1; //Ä¿¼­ ±½±â (1 ~ 100)
-	cursorInfo.bVisible = b; //Ä¿¼­ Visible TRUE(º¸ÀÓ) FALSE(¼û±è)
+	cursorInfo.dwSize = 1; //ì»¤ì„œ êµµê¸° (1 ~ 100)
+	cursorInfo.bVisible = b; //ì»¤ì„œ Visible TRUE(ë³´ìž„) FALSE(ìˆ¨ê¹€)
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
 }
 
@@ -82,11 +82,12 @@ void play();
 int main(void)
 {
 	system("title MAZE");
-	cout << "¹Ì·ÎÀÇ Å©±â ÀÔ·Â(N ¡¿ N): ";
+	cout << "ë¯¸ë¡œì˜ í¬ê¸° ìž…ë ¥(N Ã— N): ";
 	cin >> n;
+	cin.ignore();
 	if (n == 0)
 	{
-		cout << "¹Ì·ÎÀÇ Å©±â°¡ 0ÀÔ´Ï´Ù.\n´Ù½Ã ÀÔ·ÂÇÏ·Á¸é ¾Æ¹« Å°³ª ´©¸£¼¼¿ä.";
+		cout << "ë¯¸ë¡œì˜ í¬ê¸°ê°€ 0ìž…ë‹ˆë‹¤.\në‹¤ì‹œ ìž…ë ¥í•˜ë ¤ë©´ ì•„ë¬´ í‚¤ë‚˜ ëˆ„ë¥´ì„¸ìš”.";
 		while (1)
 		{
 			if (kbhit())
@@ -158,7 +159,7 @@ void play()
 			if ((i == 2 * n - 2 && j == 2 * n - 2) || (i == 0 && j == 0))
 			{
 				textcolor(WHITE, BLACK);
-				cout << "¢Ú ";
+				cout << "â™­ ";
 			}
 			else
 			{
@@ -191,22 +192,22 @@ void play()
 	{
 		gotoxy(x, y);
 		cout << "  ";
-		if ((GetAsyncKeyState(VK_LEFT) & 0x8000) && (x - 3) / 2 - 1 >= 0 && v[y - 2][(x - 3) / 2 - 1] != 0) //¿ÞÂÊ
+		if ((GetAsyncKeyState(VK_LEFT) & 0x8000) && (x - 3) / 2 - 1 >= 0 && v[y - 2][(x - 3) / 2 - 1] != 0) //ì™¼ìª½
 		{
 			x -= 2;
 			a = 0;
 		}
-		if ((GetAsyncKeyState(VK_RIGHT) & 0x8000) && x + 2 <= 4 * n && v[y - 2][(x - 3) / 2 + 1] != 0) //¿À¸¥ÂÊ
+		if ((GetAsyncKeyState(VK_RIGHT) & 0x8000) && x + 2 <= 4 * n && v[y - 2][(x - 3) / 2 + 1] != 0) //ì˜¤ë¥¸ìª½
 		{
 			x += 2;
 			a = 1;
 		}
-		if ((GetAsyncKeyState(VK_UP) & 0x8000) && y - 1 >= 2 && v[(y - 2) - 1][(x - 3) / 2] != 0) //À§
+		if ((GetAsyncKeyState(VK_UP) & 0x8000) && y - 1 >= 2 && v[(y - 2) - 1][(x - 3) / 2] != 0) //ìœ„
 		{
 			y--;
 			a = 2;
 		}
-		if ((GetAsyncKeyState(VK_DOWN) & 0x8000) && y + 1 <= 2 * n && v[(y - 2) + 1][(x - 3) / 2] != 0) //¾Æ·¡
+		if ((GetAsyncKeyState(VK_DOWN) & 0x8000) && y + 1 <= 2 * n && v[(y - 2) + 1][(x - 3) / 2] != 0) //ì•„ëž˜
 		{
 			y++;
 			a = 3;
@@ -216,16 +217,16 @@ void play()
 		switch (a)
 		{
 		case 0:
-			cout << "¢¸";
+			cout << "â—€";
 			break;
 		case 1:
-			cout << "¢º";
+			cout << "â–¶";
 			break;
 		case 2:
-			cout << "¡ã";
+			cout << "â–²";
 			break;
 		case 3:
-			cout << "¡å";
+			cout << "â–¼";
 			break;
 		}
 		Sleep(100);
@@ -247,7 +248,7 @@ void play()
 			if ((i == 2 * n - 2 && j == 2 * n - 2))
 			{
 				textcolor(RED, BLACK);
-				cout << "¡Ú ";
+				cout << "â˜… ";
 			}
 			else
 			{
@@ -280,13 +281,13 @@ void play()
 	m = (((int)finish / CLOCKS_PER_SEC) / 60) % 60;
 	s = (finish / CLOCKS_PER_SEC) % 60;
 
-	cout << "\n\n´ç½ÅÀÇ ±â·ÏÀº ";
+	cout << "\n\në‹¹ì‹ ì˜ ê¸°ë¡ì€ ";
 	if (h != 0)
-		cout << h << "½Ã°£ " << m << "ºÐ ";
+		cout << h << "ì‹œê°„ " << m << "ë¶„ ";
 	else if (m != 0)
-		cout << m << "ºÐ ";
-	cout << s << "ÃÊ ÀÔ´Ï´Ù.";
-	cout << "\n\n´Ù½Ã ÇÃ·¹ÀÌÇÏ½Ã°Ú½À´Ï±î? (Y / N): ";
+		cout << m << "ë¶„ ";
+	cout << s << "ì´ˆ ìž…ë‹ˆë‹¤.";
+	cout << "\n\në‹¤ì‹œ í”Œë ˆì´í•˜ì‹œê² ìŠµë‹ˆê¹Œ? (Y / N): ";
 	char ans;
 	cin >> ans;
 	if (ans == 'Y' || ans == 'y')
